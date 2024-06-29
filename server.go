@@ -2,14 +2,15 @@ package main
 
 import (
 	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/romanGov/go-crud/handler/basic_handler"
-	"hanlder/basic_handler"
+	"net/http"
+	"time"
 )
 
+func Hello(w http.ResponseWriter, r *http.Request) {
+	time.Sleep(1 * time.Second)
+	fmt.Fprintf(w, "Hello, World!")
+}
 func main() {
-	router := gin.Default()
-	fmt.Println("handling routes")
-	router.GET("/go/work", basic_handler.hello)
-	router.Run(":8080")
+	http.HandleFunc("/go/work", Hello)
+	http.ListenAndServe(":8081", nil)
 }
